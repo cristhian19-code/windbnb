@@ -1,0 +1,16 @@
+---
+export interface Props {
+  label?: string | null;
+  type?: astroHTML.JSX.HTMLInputTypeAttribute | null;
+}
+
+const { label, type } = Astro.props;
+---
+
+<div class="w-[400px] relative">
+  <p class="absolute top-2 left-3 text-xs">{label || "label"}</p>
+  <input
+    class="w-full shadow h-14 outline-none px-3 pt-4 rounded-lg focus: border-zinc-800 focus:border"
+    type={type || "text"}
+  />
+</div>

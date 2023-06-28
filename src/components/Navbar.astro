@@ -1,0 +1,96 @@
+---
+import Input from "./Input.astro";
+import stays from "../data/stays.json";
+import ControlNumber from "./ControlNumber.astro";
+
+const listLocations = stays.map((stay) => `${stay.city}, ${stay.country}`);
+
+const locations = [...new Set(listLocations)].sort();
+---
+
+<script>
+  // variables
+  const btn = document.getElementById("btn-search");
+  const overlay = document.getElementById("drawer-overlay");
+
+  const removeVisibleClass = (method = "toggle") => {
+    document.querySelector(".drawer-search").classList[method]("visible");
+  };
+
+  // events
+  btn.addEventListener("click", () => {
+    removeVisibleClass();
+  });
+
+  overlay.addEventListener("click", () => {
+    removeVisibleClass("remove");
+  });
+
+  window.addEventListener("scroll", () => {
+    const isVisible = document.querySelector(".drawer-search").className;
+
+    if (isVisible.includes("visible")) {
+      removeVisibleClass("remove");
+    }
+  });
+</script>
+
+<header class="px-5 py-4 flex justify-between relative">
+  <nav class="flex items-center justify-center">
+    <img src="/logo.png" width="120px" alt="" />
+  </nav>
+  <nav class="flex items-center justify-center">
+    <button class="px-5 py-3 shadow rounded-l-md rounded-r-sm"
+      >Helsiwwnki, Finland</button
+    >
+    <button class="ml-2 px-5 py-3 shadow rounded-sm text-gray-400"
+      >Add guests</button
+    >
+    <button
+      id="btn-search"
+      class="px-5 h-full shadow rounded-r-md rounded-l-sm text-orange-500 font-bold text-lg flex justify-center items-center"
+    >
+      <i class="ri-search-line"></i>
+    </button>
+  </nav>
+</header>
+
+<div
+  class="-top-full drawer-search absolute transition-all items-start duration-700 left-0 w-full h-full z-30 flex gap-4 visible"
+>
+  <div class="bg-white w-full flex items-start px-4 py-[50px] gap-4 z-50">
+    <div>
+      <Input label="LOCATION" />
+      <ul class="pl-3 pt-4">
+        {
+          locations.map((location: string) => (
+            <li class="my-6 text-md">
+              <i class="ri-map-pin-fill" />
+              {location}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <Input label="GUESTS" />
+      <div>
+        <ControlNumber />
+      </div>
+    </div>
+    <button
+      class="py-3 px-5 bg-red-500 text-white rounded-xl gap-3 flex justify-center"
+    >
+      <i class="ri-search-line"></i>
+      Search
+    </button>
+  </div>
+  <div id="drawer-overlay" class="absolute h-full w-full bg-black/30 z-40">
+  </div>
+</div>
+
+<style>
+  .visible {
+    top: 0 !important;
+  }
+</style>
