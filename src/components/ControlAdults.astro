@@ -1,0 +1,47 @@
+<script>
+  const subtract = document.getElementById(`btn-adults-subtract`);
+  const add = document.getElementById("btn-adults-add");
+
+  subtract.addEventListener("click", () => {
+    const input = document.getElementById("print-adults-val");
+    let value = Number(input.getAttribute("value"));
+
+    if (value > 0) {
+      value--;
+      input.setAttribute("value", `${value}`);
+    }
+  });
+
+  add.addEventListener("click", () => {
+    const input = document.getElementById("print-adults-val");
+    let value = Number(input.getAttribute("value"));
+
+    value++;
+    input.setAttribute("value", `${value}`);
+  });
+</script>
+
+<div>
+  <p class="text-md font-semibold">Adults</p>
+  <p class="text-gray-400 mb-3">Ages 13 or above</p>
+  <div class="flex gap-2">
+    <button
+      id="btn-adults-subtract"
+      class="w-8 border border-zinc-500 rounded-md flex justify-center items-center"
+    >
+      <i class="ri-subtract-line"></i></button
+    >
+    <input
+      class="w-5 text-center outline-none"
+      disabled
+      id="print-adults-val"
+      value={0}
+    />
+    <button
+      id="btn-adults-add"
+      class="w-8 border border-zinc-500 rounded-md flex justify-center items-center"
+    >
+      <i class="ri-add-line"></i>
+    </button>
+  </div>
+</div>

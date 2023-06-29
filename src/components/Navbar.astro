@@ -1,7 +1,8 @@
 ---
 import Input from "./Input.astro";
 import stays from "../data/stays.json";
-import ControlNumber from "./ControlNumber.astro";
+import ControlAdults from "./ControlAdults.astro";
+import ControlChildren from "./ControlChildren.astro";
 
 const listLocations = stays.map((stay) => `${stay.city}, ${stay.country}`);
 
@@ -74,8 +75,11 @@ const locations = [...new Set(listLocations)].sort();
     </div>
     <div>
       <Input label="GUESTS" />
-      <div>
-        <ControlNumber />
+      <div class="pt-10">
+        <ControlAdults />
+        <div class="mt-5">
+          <ControlChildren />
+        </div>
       </div>
     </div>
     <button
